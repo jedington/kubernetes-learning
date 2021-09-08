@@ -1,9 +1,0 @@
-# store this file in /etc/ansible/hosts of the controller
-
-[local]
-localhost ansible_connection=local # controller / c1.cp1
-
-[nodes]
-c1.node1
-c1.node2
-c1.node3

@@ -1,0 +1,18 @@
+# store in controller host '~/<this file>'
+
+- name: Install python in all remote nodes
+  hosts: all
+  become: true
+  gather_facts: no
+  pre_tasks:
+  - name: install python
+    raw: 'cat < ~/python-remote-setup.sh'
+    args:
+      executable: /bin/bash
+
+- name: Transfer and execute a script.
+  hosts: nodes
+  sudo: yes
+  tasks:
+    - name: Copy and execute kubernetes setup script for each node
+      script: ~/kubernetes-ubuntu-setup.sh
