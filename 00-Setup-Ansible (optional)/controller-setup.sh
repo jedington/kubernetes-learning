@@ -29,3 +29,16 @@ fi
 
 sudo $package_manager install python3
 sudo $package_manager update
+
+#- sudo apt remove ansible && sudo apt --purge autoremove 
+# ^ if older/stale ansible version exists ^
+sudo $package_manager install ansible -y
+#- ansible --version | grep "python version" # optional
+
+# ip changes depending on vm setup
+echo "
+10.10.10.10 c1-cp1
+10.10.10.11 c1-node1
+10.10.10.12 c1-node2
+10.10.10.13 c1-node3
+" >> /etc/hosts
