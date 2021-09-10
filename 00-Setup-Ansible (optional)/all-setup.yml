@@ -1,18 +1,36 @@
 # store in controller host '~/<this file>'
 
-- name: Install python in all remote nodes
-  hosts: all
-  become: true
+- name: "Install inventory mapping and setup all remote nodes"
+  hosts: devs, nodes
+  become: true # newer ansible version of 'sudo'
   gather_facts: no
   pre_tasks:
+  - name: Add Ansible inventory mappings to /etc/hosts
+    blockinfile:
+      path: /etc/hosts
+      block: |
+        {% for host in groups['all'] %}
+        {{ hostvars[host].ansible_host }} {{ host }}
+        {% endfor %}
   - name: install python
     raw: 'cat < ~/python-remote-setup.sh'
     args:
-      executable: /bin/bash
+      executable: '/bin/bash'
 
-- name: Transfer and execute a script.
-  hosts: nodes
-  sudo: yes
-  tasks:
-    - name: Copy and execute kubernetes setup script for each node
-      script: ~/kubernetes-ubuntu-setup.sh
+- name: "Remove swapfile for all hosts." # specific to kubernetes
+  hosts: all
+  become: true # newer ansible version of 'sudo'
+  mount:
+    name: "Remove swapfile from /etc/fstab"
+    fstype: swap
+    state: absent
+
+- name: "Copy and execute kubernetes setup script for each node."
+  hosts: all
+  become: true # newer ansible version of 'sudo'
+  post_tasks:
+    - name: "Execute kubernetes setup script."
+      script: '~/kubernetes-ubuntu-setup.sh'
+      register: console
+    - debug: msg='{{ console.stdout }}'
+    - debug: msg='{{ console.stderr }}' 
