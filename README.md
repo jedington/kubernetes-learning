@@ -37,16 +37,16 @@
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/jedington/Canvas-Your-Goals.svg?style=for-the-badge
-[contributors-url]: https://github.com/jedington/Canvas-Your-Goals/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/jedington/Canvas-Your-Goals.svg?style=for-the-badge
-[forks-url]: https://github.com/jedington/Canvas-Your-Goals/network/members
-[stars-shield]: https://img.shields.io/github/stars/jedington/Canvas-Your-Goals.svg?style=for-the-badge
-[stars-url]: https://github.com/jedington/Canvas-Your-Goals/stargazers
-[issues-shield]: https://img.shields.io/github/issues/jedington/Canvas-Your-Goals.svg?style=for-the-badge
-[issues-url]: https://github.com/jedington/Canvas-Your-Goals/issues
-[license-shield]: https://img.shields.io/github/license/jedington/Canvas-Your-Goals.svg?style=for-the-badge
-[license-url]: https://github.com/jedington/Canvas-Your-Goals/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/jedington/kubernetes-learning.svg?style=for-the-badge
+[contributors-url]: https://github.com/jedington/kubernetes-learning/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/jedington/kubernetes-learning.svg?style=for-the-badge
+[forks-url]: https://github.com/jedington/kubernetes-learning/network/members
+[stars-shield]: https://img.shields.io/github/stars/jedington/kubernetes-learning.svg?style=for-the-badge
+[stars-url]: https://github.com/jedington/kubernetes-learning/stargazers
+[issues-shield]: https://img.shields.io/github/issues/jedington/kubernetes-learning.svg?style=for-the-badge
+[issues-url]: https://github.com/jedington/kubernetes-learning/issues
+[license-shield]: https://img.shields.io/github/license/jedington/kubernetes-learning.svg?style=for-the-badge
+[license-url]: https://github.com/jedington/kubernetes-learning/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/julian-edington/
 [twitter-shield]: https://img.shields.io/twitter/follow/arcanicvoid?style=for-the-badge&logo=twitter&colorB=555
