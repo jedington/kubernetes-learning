@@ -12,27 +12,36 @@
 
 ### PluralSight Kubernetes Fundamentals by [Anthony Nocentino](https://app.pluralsight.com/profile/author/anthony-nocentino)
 
-1. download Ubuntu VM template (any stable release):
-- https://ubuntu.com/download/desktop -- for VMWare/Hyper-V
-- https://www.osboxes.org/ubuntu/ -- for VirtualBox
+1. Download Ubuntu VM template (any stable release after 18.04):
+    - [VMWare/Hyper-V] https://ubuntu.com/download/desktop
+    - [VirtualBox] https://www.osboxes.org/ubuntu/
 
-2. clone repo within a preferred local folder:
-- git clone jedington/kubernetes-learning.git
+2. Install kubernetes within each Node (1+X):
+    - [NOTE] You will need to be aware of what the IPs of each Node are, and to change where/if applicable.
+    - [Option-1-(Ansible)] Use Ansible instead of manually copying. What this will do, is run a script on each node that automates most of the installation and configuration of Kubernetes. This won't automate everything, but will skip a good amount of redundant hassle.
+        1. Clone repo and navigate into the Controller Node / Control Plane Node (c1-cp1). CLI/run: `git clone jedington/kubernetes-learning.git`.
+        2. Copy files from '/01-Setup-Ansible/<copy-files-here>' into Controller Node '~/<paste-files-here>'. 
+        3. Run - `sudo controller-setup.sh` - to install latest python and ansible. 
+            - [NOTE] Keep in mind you'll have to adjust the IP addresses in the 'echo' of 'controller-setup.sh' to reflect your Node IPs.
+        4. Figure out auth for remote hosts, can use 'ssh-setup-example.sh', edit the Node IPs, then run: `sudo ssh-setup-example.sh`.
+            - [NOTE] Again, don't forget to change the Node IPs for your setup.
+        5. Finally, run - `sudo ansible-playbook -i ~/ all-setup.yml` - while in the Controller Node.
+        6. Refer to '01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete the setup from there.
+        7. Continue to Step 4. Keep in mind that much of installing Kubernetes has been automated, now its just further configuring the control node and running it.
+    - [Option-2-(SSH)] This option is arguably the fastest (but not automated) if you're fully comfortable with multi-SSH clients and using 'git' to remotes.
+        1. Clone repo in a preferred local directory. CLI/run: `git clone jedington/kubernetes-learning.git`
+        2. Navigate into each node and drop the '01-Setup-Ansible/kubernetes-ubuntu-setup.sh' file into them, then execute the file for each node.
+        3. Figure out auth for remote hosts, can use 'ssh-setup-example.sh', edit the Node IPs, then run: `sudo ssh-setup-example.sh`.
+            - [NOTE] Again, don't forget to change the Node IPs for your setup.
+        4. Refer to '02-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete the setup from there.
+        5. Continue to Step 4. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it.
+    - [Option-3-(Docker)] This option is completely manual, using the original exercise instructions and adding in Docker:
+        1. Use this path for Docker setup: '02-PluralSight-Fundamentals/03/demos/docker (alternative)'
+        2. Continue to Step 4.
 
-3. install kubernetes within each VM (1+X):
-- Manually move files, then CLI: 'sudo kubernetes-ubuntu-setup.sh'
-- [optional] Use Ansible instead of manually copying. What this will do, is run a script on each node that almost automates the installation and configuration of Kubernetes. This won't automate everything, so you'll still have to refer to the instructions in step 5.
-    1. Copy files from this repo /00-Setup-Ansible/ into Controller Host.
-    2. Run controller-setup.sh to install latest python and ansible.
-    3. Figure out auth for remote hosts, can refer to ssh-setup-example.sh. Keep in mind you'll have to adjust the IP addresses in the 'echo' of controller-setup.sh to reflect your VM node IPs.
-    4. Run 'sudo ansible-playbook -i ~/ all-setup.yml' while in the Controller Host.
-    5. Refer to '01-PluralSight-Kubernetes-Fundamentals > 03 > Demos > 1-CreateControlPlaneNode-containerd.sh' and complete the setup from there.
-
-4. navigate through the files, starting from: 
-- kubernetes learning > 01-PluralSight-Kubernetes-Fundamentals > 03 >
-
-5. open the pdf, it'll guide through the rest:
-- installing-and-configuring-kubernetes-slides.pdf
+3. Navigate through the files, starting from: 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
+    - [NOTE] Control Plane Node's IP address will vary; what's used as an example in the upcoming exercise files is: '172.16.94.10'
+    - [NOTE] Removed redundant files due to this repo's 'kubernetes-ubuntu-setup.sh' eliminating the need for '0-PackageInstallation-containerd.sh' and '2-CreateNodes-containerd.sh'.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
