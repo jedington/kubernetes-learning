@@ -23,7 +23,6 @@ if [ $package_manager=="apt" ]
 then
     sudo apt install software-properties-common -y
     sudo -E apt-add-repository -y 'ppa:deadsnakes/ppa'
-    sudo -E apt-add-repository -y 'ppa:ansible/ansible'
     sudo apt update
 fi
 
