@@ -27,6 +27,7 @@ then
     sudo apt update
 fi
 
+sudo $package_manager install git-all
 sudo $package_manager install python3
 sudo $package_manager update
 
