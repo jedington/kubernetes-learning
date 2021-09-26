@@ -24,9 +24,8 @@
         2. Copy from '../01-Setup-Ansible/(copy-files-here)' to Controller Node '~/(paste-files-here)'. 
         3. Run - `sudo controller-setup.sh` - to install latest python and ansible. 
             - [NOTE] Keep in mind you'll have to adjust the IP addresses in the 'echo' of 'controller-setup.sh' to reflect your Node IPs.
-        4. Figure out auth for remote hosts, can use 'ssh-setup-example.sh', edit the Node IPs.
+        4. Figure out auth for remote hosts, can use 'ssh-setup-example.sh'.
             - [Example] CLI/run: `sudo ssh-setup-example.sh`.
-            - [NOTE] Again, don't forget to change the Node IPs for your setup.
         5. Finally, run the Ansible playbook from the Controller Node.
             - [Example] CLI/run: `sudo ansible-playbook -i ~/ all-setup.yml` 
         6. Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete the setup from there.
@@ -34,9 +33,8 @@
     - [Option-2-(SSH)] This option is arguably the fastest (but not automated) if you're fully comfortable with multi-SSH clients and using 'git' to remotes.
         1. Clone repo in a preferred local directory. CLI/run: `git clone jedington/kubernetes-learning.git`
         2. Navigate into each node and drop the '../01-Setup-Ansible/kubernetes-ubuntu-setup.sh' file into them, then execute the file for each node.
-        3. Figure out auth for remote hosts, can use 'ssh-setup-example.sh', edit the Node IPs.
+        3. Figure out auth for remote hosts, can use 'ssh-setup-example.sh'.
             - [Example] CLI/run: `sudo ssh-setup-example.sh`.
-            - [NOTE] Again, don't forget to change the Node IPs for your setup.
         4. Refer to '../02-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete the setup from there.
         5. Continue to Step 4. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it.
     - [Option-3-(Docker)] This option is completely manual, using  original exercise instructions:
