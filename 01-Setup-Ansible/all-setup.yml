@@ -1,7 +1,7 @@
 # store in controller host '~/<this file>'
 
 - name: "Install inventory mapping and setup all remote nodes"
-  hosts: devs, nodes
+  hosts: all
   become: true # newer ansible version of 'sudo'
   gather_facts: no
   pre_tasks:
@@ -20,10 +20,18 @@
 - name: "Remove swapfile for all hosts." # specific to kubernetes
   hosts: all
   become: true # newer ansible version of 'sudo'
-  mount:
-    name: "Remove swapfile from /etc/fstab"
-    fstype: swap
-    state: absent
+  tasks:
+  - name: "Remove swapfile from /etc/fstab"
+    mount:
+      fstype: swap
+      state: absent
+  - name: Disable swap permanently, persist reboots
+    replace:
+      path: /etc/fstab
+      regexp: '^(\s*)([^#\n]+\s+)(\w+\s+)swap(\s+.*)$'
+      replace: '#\1\2\3swap\4'
+      backup: yes
+
 
 - name: "Copy and execute kubernetes setup script for each node."
   hosts: all

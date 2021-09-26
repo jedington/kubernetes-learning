@@ -10,7 +10,7 @@ ssh-copy-id -i $HOME/.ssh/id_rsa.pub root@c1-node2
 ssh-copy-id -i $HOME/.ssh/id_rsa.pub root@c1-node3
 eval $(ssh-agent)
 ssh-add
-ansible -i ~/hosts -m ping all
+ansible -i ~/etc/hosts -m ping all
 
 #- sudo ansible-playbook -i ~/ all-setup.yml
 # ^ run after setting up ssh/other auth options ^
