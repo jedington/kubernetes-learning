@@ -10,8 +10,6 @@
 
 # kubernetes-learning
 
-### PluralSight Kubernetes Fundamentals by [Anthony Nocentino](https://app.pluralsight.com/profile/author/anthony-nocentino)
-
 1. Download Ubuntu VM template (any stable release after 18.04):
     - [VMWare/Hyper-V] https://ubuntu.com/download/desktop
     - [VirtualBox] https://www.osboxes.org/ubuntu/
@@ -40,6 +38,8 @@
     - [Option-3-(Docker)] This option is completely manual, using  original exercise instructions:
         1. Use this path for Docker setup: '../02-PluralSight-Fundamentals/03/demos/docker (alternative)'
         2. Continue to Step 4.
+
+### [PluralSight] Kubernetes Fundamentals by [Anthony Nocentino](https://app.pluralsight.com/profile/author/anthony-nocentino)
 
 3. Navigate files from: 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
     - [NOTE] Control Plane Node's IP address will vary; what's used as an example in the upcoming exercise files is: '172.16.94.10'

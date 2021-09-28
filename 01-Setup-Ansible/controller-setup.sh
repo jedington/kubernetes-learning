@@ -31,7 +31,7 @@ sudo $package_manager install git-all
 sudo $package_manager install python3
 sudo $package_manager update
 
-#- sudo apt remove ansible && sudo apt --purge autoremove 
+#- sudo $package_manager remove ansible && sudo $package_manager --purge autoremove 
 # ^ if older/stale ansible version exists ^
 sudo $package_manager install ansible -y
 #- ansible --version | grep "python version" # optional
