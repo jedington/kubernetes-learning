@@ -1,0 +1,32 @@
+### Ansible ###
+*.retry
+
+### Consul ###
+**/consul/data/*
+
+### Vagrant ###
+.vagrant/
+*.box
+
+### VS Code ###
+**/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+### etc files ###
+*.log
+*.pem
+*.zip
+*.?z
+*.exe
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
