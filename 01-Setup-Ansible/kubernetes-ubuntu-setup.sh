@@ -1,5 +1,4 @@
 #!/bin/bash
-# store in controller host '~/<this file>'
 
 #Install a container runtime - containerd
 #containerd prerequisites, first load two modules and configure them to load on boot
