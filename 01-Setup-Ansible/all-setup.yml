@@ -1,10 +1,12 @@
-# store in controller host '~/<this file>'
-
 - name: "Install inventory mapping and setup all remote nodes"
-  hosts: all
+  hosts: nodes
+  #- gather_facts: false # comment out if preferred
   become: true # newer ansible version of 'sudo'
-  gather_facts: false # comment out if preferred
   pre_tasks:
+  - name: "Install python3"
+    raw: 'cat < ~/python-remote-setup.sh'
+    args:
+      executable: '/bin/bash'
   - name: "Add Ansible inventory mappings to /etc/hosts"
     blockinfile:
       path: '/etc/hosts'
@@ -12,15 +14,21 @@
         {% for host in groups['all'] %}
         {{ hostvars[host].ansible_host }} {{ host }}
         {% endfor %}
-  - name: "Install python"
-    raw: 'cat < ~/python-remote-setup.sh'
-    args:
-      executable: '/bin/bash'
+
+- name: "Update all nodes"
+  hosts: all
+  become: true # newer ansible version of 'sudo'
+  tasks:
+  - name: "Install updates for RedHat OS Families"
+    yum: name=* state=latest update_cache=yes
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'Fedora'
+  - name: "Install updates for Debian OS Families"
+    apt: upgrade=dist update_cache=yes
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Kali' or ansible_distribution == 'Ubuntu'
 
 - name: "Remove swapfile for all hosts." # specific to kubernetes
   hosts: all
   become: true # newer ansible version of 'sudo'
-  gather_facts: false # comment out if preferred
   tasks:
   - name: "Remove swapfile from /etc/fstab"
     mount:
@@ -36,7 +44,6 @@
 - name: "Copy and execute kubernetes setup script for each node."
   hosts: all
   become: true # newer ansible version of 'sudo'
-  gather_facts: true # keeping true since this part can break, thanks kubernetes
   post_tasks:
     - name: "Execute kubernetes setup script."
       script: '~/kubernetes-ubuntu-setup.sh'
