@@ -1,5 +1,4 @@
 #!/bin/bash
-# store in controller host '~/<this file>'
 
 declare -A osInfo;
 osInfo[/etc/debian_version]="apt"
@@ -27,8 +26,8 @@ then
     sudo apt update
 fi
 
-sudo $package_manager install git-all
-sudo $package_manager install python3
+sudo $package_manager install git -y
+sudo $package_manager install python3 -y
 sudo $package_manager update
 
 #- sudo $package_manager remove ansible && sudo $package_manager --purge autoremove 
