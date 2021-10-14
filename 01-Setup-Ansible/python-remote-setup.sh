@@ -12,18 +12,17 @@ osInfo[/etc/redhat-release]="yum"
 for f in ${!osInfo[@]}
 do
     if [[ -f $f ]];then
-        package_manager=${osInfo[$f]}
+		pkg_mgr=${osInfo[$f]}
     fi
 done
 
-sudo $package_manager update
-sudo $package_manager upgrade
-if [ $package_manager=="apt" ]
+sudo $pkg_mgr update && sudo $pkg_mgr upgrade
+if [ $pkg_mgr=="apt" ]
 then
     sudo apt install software-properties-common -y
     sudo -E apt-add-repository -y 'ppa:deadsnakes/ppa'
-    sudo apt update
 fi
 
-sudo $package_manager install python3 -y
-sudo $package_manager update
+sudo $pkg_mgr update
+sudo $pkg_mgr install python3 -y
+sudo $pkg_mgr upgrade && sudo $pkg_mgr autoclean && sudo $pkg_mgr autoremove

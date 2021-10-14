@@ -32,24 +32,33 @@ Recommended Knowledge Beforehand:
             - [Run] `git clone https://github.com/jedington/kubernetes-learning.git ~/kubernetes-learning/`.
         3. Changing permissions to allow execution of scripts to setup Ansible.
             - [Run] `sudo chmod -R 755 ~/kubernetes-learning/01-Setup-Ansible`        
-        4. Replace the default Ansible 'hosts' (inventory) file with our own.
-            1. [Run] `sudo cp -f ~/kubernetes-learning/01-Setup-Ansible/hosts /etc/ansible/hosts`
-            2. Then edit the IPs in the file to reflect your VMs.
-                - [Run] `sudo vi /etc/ansible/hosts`
-        5. Replace the default Ansible 'ansible.cfg' (configuration) file with our own.
+        4. Replace the default Ansible 'ansible.cfg' (configuration) file with our own.
             - [Run] `sudo cp -f ~/kubernetes-learning/01-Setup-Ansible/ansible.cfg /etc/ansible/ansible.cfg`
-        6. Run - `controller-setup.sh` - to install latest python and ansible. 
+        5. Run - `controller-setup.sh` - to install latest python and ansible. 
             1. [NOTE] You'll have to adjust IPs in the 'echo' of 'controller-setup.sh' to your Node IPs.
                 - [Run] `sudo vi ~/kubernetes-learning/01-Setup-Ansible/controller-setup.sh`
-                - Scroll down in the file, edit the IPs to reflect your VMs.
+                - [REQUIRED] Edit IPs to reflect your VMs. Two locations in the file to change per Node.
+                - Example
+                    ```
+                    ...
+                    10.10.10.10 c1-cp1
+                    10.10.10.11 c1-node1
+                    10.10.10.12 c1-node2
+                    10.10.10.13 c1-node3
+                    ...
+                    c1-node1 ansible_host=10.10.10.11 ansible_user=root 
+                    c1-node2 ansible_host=10.10.10.12 ansible_user=root 
+                    c1-node3 ansible_host=10.10.10.13 ansible_user=root
+                    ...
+                    ```
             2. [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/controller-setup.sh`
-        7. Figure out auth for remote hosts, can use 'ssh-setup-example.sh'.
+        6. Figure out auth for remote hosts, can use 'ssh-setup-example.sh'.
             - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/ssh-setup-example.sh`.
             - [Note] this will prompt for the default passwords for each VM.
-        8. Finally, run the Ansible playbook from the Controller Node.
+        7. Finally, run the Ansible playbook from the Controller Node.
             - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/ansible-playbook all-setup.yml` 
-        9. Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
-        10. Continue to Step 4. Keep in mind that much of installing Kubernetes has been automated, now its just further configuring the control node and running it.
+        8. Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
+        9. Continue to Step 4. Keep in mind that much of installing Kubernetes has been automated, now its just further configuring the control node and running it.
     - [Option-2-(SSH)] This option is arguably quick (but not automated) if you're fully comfortable with SSH into clients and using 'git' to remotes. This option still automates the Kubernetes install, but you have to SSH to each Node.
         1. [All-Nodes] Install git.
             1. [Run] `sudo apt update`
@@ -60,19 +69,8 @@ Recommended Knowledge Beforehand:
             - [Run] `sudo chmod -R 755 ~/kubernetes-learning/01-Setup-Ansible`
         4. [All-Nodes] Run the Kubernetes setup file.
             - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/kubernetes-ubuntu-setup.sh`.
-        5. [Controller-only] Figure out auth for remote hosts, can use 'ssh-setup-example.sh'.
-            1. In order to use this script, you will have to specify the remote IPs in the hosts file.
-                - [Note] Can use: `sudo vi etc/hosts` to edit the hosts file.
-                - Formatting will look like (just different IPs):
-                    ```
-                    10.10.10.10 c1-cp1
-                    10.10.10.11 c1-node1
-                    10.10.10.12 c1-node2
-                    10.10.10.13 c1-node3
-                    ```
-            2. [Run] `sudo  ~/kubernetes-learning/01-Setup-Ansible/ssh-setup-example.sh`.
-        6. [Controller-only] Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
-        7. Continue to Step 4. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it.
+        5. [Control-Plane-Node-only] Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
+        6. Continue to Step 4. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it.
     - [Option-3] Going the normal route and no automation. This will take the longest.
         - Continue to Step 4.
 
