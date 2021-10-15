@@ -4,7 +4,7 @@
   become: true # newer ansible version of 'sudo'
   pre_tasks:
   - name: "Install python3"
-    raw: 'cat < ~/python-remote-setup.sh'
+    raw: 'cat < python-remote-setup.sh'
     args:
       executable: '/bin/bash'
   - name: "Add Ansible inventory mappings to /etc/hosts"
@@ -46,7 +46,7 @@
   become: true # newer ansible version of 'sudo'
   post_tasks:
     - name: "Execute kubernetes setup script."
-      script: '~/kubernetes-ubuntu-setup.sh'
+      script: 'kubernetes-ubuntu-setup.sh'
       register: console
     - debug: msg='{{ console.stdout }}'
     - debug: msg='{{ console.stderr }}' 
