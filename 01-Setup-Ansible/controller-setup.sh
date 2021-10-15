@@ -1,13 +1,14 @@
 #!/bin/bash
 
 declare -A osInfo;
-osInfo[/etc/debian_version]="apt"
-osInfo[/etc/alpine-release]="apk"
-osInfo[/etc/centos-release]="yum"
-osInfo[/etc/fedora-release]="dnf"
-osInfo[/etc/redhat-release]="yum"
-# newer versions of RHEL and CentOS will start to use 
-# 'dnf' instead of 'yum' from version 8.XX and forward.
+osInfo[/etc/debian_version]='apt'
+osInfo[/etc/alpine-release]='apk'
+osInfo[/etc/centos-release]='yum'
+osInfo[/etc/fedora-release]='dnf'
+osInfo[/etc/redhat-release]='dnf'
+# Newer RHEL/CentOS versions use 'dnf' from version 7.XX and forward
+# Newer RedHat family versions use: '/etc/redhat/release' since 2013~2015
+# Cannot guarantee compatibility for any RedHat systems older than 2015
 
 for f in ${!osInfo[@]}
 do
@@ -16,20 +17,45 @@ do
     fi
 done
 
-sudo $pkg_mgr update && sudo $pkg_mgr upgrade
-if [ $pkg_mgr=="apt" ]
+sudo $pkg_mgr update
+
+if [ $pkg_mgr=='apt' ]
 then
     sudo apt install software-properties-common -y
     sudo -E apt-add-repository -y 'ppa:deadsnakes/ppa'
     sudo -E apt-add-repository -y 'ppa:ansible/ansible'
+    sudo apt autoclean
+fi
+
+if [ $pkg_mgr=='yum' ]
+then
+    sudo yum install https://repo.ius.io/ius-release-el$(rpm -E '%{rhel}').rpm -y
+    line='clean_requirements_on_remove=1'
+    file='/etc/yum.conf'
+    grep -qxF "$line" "$file" || echo "$line" >> "$file"
+fi
+
+if [ $pkg_mgr=='dnf' ]
+then
+    sudo yum install epel-release -y && sudo yum install dnf -y
+    line1='metadata_timer_sync=3600'
+    line2='max_parallel_downloads=10'
+    file='/etc/dnf/dnf.conf'
+    grep -qxF "$line1" "$file" || echo "$line1" >> "$file"
+    grep -qxF "$line2" "$file" || echo "$line2" >> "$file"
+fi
+
+if [ $pkg_mgr=='yum'||'dnf' ]
+then
+    sudo $pkg_mgr clean packages && sudo $pkg_mgr clean metadata
+    sudo $pkg_mgr clean dbcache && sudo $pkg_mgr clean all
+    sudo $pkg_mgr makecache
 fi
 
 sudo $pkg_mgr update
 sudo $pkg_mgr install git python3 ansible -y
-sudo $pkg_mgr upgrade && sudo $pkg_mgr autoclean && sudo $pkg_mgr autoremove
+sudo $pkg_mgr upgrade && sudo $pkg_mgr autoremove
 ansible --version | grep "python version" # optional
-#- sudo $pkg_mgr remove ansible && sudo $pkg_mgr --purge autoremove 
-# ^ if older/stale ansible version exists ^
 
 # ip changes depending on vm setup
 while IFS= read -r line ; do
