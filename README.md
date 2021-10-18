@@ -26,6 +26,10 @@ Recommended Knowledge Beforehand:
     - Pick one to be the controller, doesn't matter which; the rest will be remotes.
     - [NOTE] You will need to be aware of what the IPs of each VM / Node are.
 
+| ![EXAMPLE][project-screenshot] | 
+|:--:| 
+| *Lab Example* |
+
 ## Installing Kubernetes on Each Node (1+X)
 
 ### OPTION 1
@@ -106,3 +110,4 @@ If you have a PluralSight subscription, I recommend taking a look at Kubernetes 
 [linkedin-url]: https://www.linkedin.com/in/julian-edington
 [twitter-shield]: https://img.shields.io/twitter/follow/arcanicvoid?style=for-the-badge&logo=twitter&colorB=555
 [twitter-url]: https://twitter.com/arcanicvoid
+[project-screenshot]: images/example.png
