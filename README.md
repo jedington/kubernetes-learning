@@ -45,14 +45,16 @@ Recommended Knowledge Beforehand:
 5. Use `controller-setup.sh` to install python and ansible. 
     1. [NOTE] You'll have to adjust IPs in the 'echo' of 'controller-setup.sh' to your Node IPs.
         - [Run] `sudo vi ~/kubernetes-learning/01-Setup-Ansible/controller-setup.sh`
-        - [REQUIRED] Edit IPs to reflect your VMs. Two locations in the file to change per Node.
-        - *Example*
+        - [REQUIRED] Edit to reflect your VMs. Two locations in the file to change per Node.
+        - *Example--edit the IP addresses to reflect your host IPs*
             ```
             ...
             10.10.10.10 c1-cp1
             10.10.10.11 c1-node1
             10.10.10.12 c1-node2
             10.10.10.13 c1-node3
+            ...
+            c1-cp1 ansible_host=10.10.10.10 ansible_user=root
             ...
             c1-node1 ansible_host=10.10.10.11 ansible_user=root 
             c1-node2 ansible_host=10.10.10.12 ansible_user=root 
