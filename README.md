@@ -37,7 +37,7 @@ Recommended Knowledge Beforehand:
 1. Navigate into the Controller Node / Control Plane Node (c1-cp1) and install git.
     - [Run] `sudo apt update; sudo apt install git -y`
 2. Clone repo into the Controller Node / Control Plane Node (c1-cp1).
-    - [Run] `git clone https://github.com/jedington/kubernetes-learning.git ~/kubernetes-learning/`.
+    - [Run] `git clone https://github.com/jedington/kubernetes-learning.git ~/kubernetes-learning/`
 3. Changing permissions to allow execution of scripts to setup Ansible.
     - [Run] `sudo chmod -R 755 ~/kubernetes-learning/01-Setup-Ansible`        
 4. Replace the default Ansible 'ansible.cfg' (configuration) file with our own.
@@ -63,24 +63,24 @@ Recommended Knowledge Beforehand:
             ```
     2. [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/controller-setup.sh`
 6. Figure out auth for remote hosts, can use 'ssh-setup-example.sh'.
-    - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/ssh-setup-example.sh`.
+    - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/ssh-setup-example.sh`
     - [Note] this will prompt for the default passwords for each VM.
 7. Finally, run the Ansible playbook from the Controller Node.
     - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/ansible-playbook all-setup.yml` 
-8. Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
+8. Refer to '../02-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
 9. Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>. Keep in mind that much of installing Kubernetes has been automated, now its just further configuring the control node and running it.
 
 ### OPTION 2
-[SSH] This option is arguably quick (but not automated) if you're fully comfortable with SSH into clients and using 'git' to remotes. This option still automates the Kubernetes install, but you have to SSH to each Node.
+[SSH] This option is arguably quick if you're fully comfortable with SSH into clients and using 'git' to remotes. This option still automates the Kubernetes install, but you have to SSH to each Node.
 1. [All-Nodes] Install git.
     - [Run] `sudo apt update; sudo apt install git -y`
 2. [All-Nodes] Clone repo in a preferred local directory.
-    - [run] `git clone https://github.com/jedington/kubernetes-learning.git ~/kubernetes-learning/`.
+    - [run] `git clone https://github.com/jedington/kubernetes-learning.git ~/kubernetes-learning/`
 3. [All-Nodes] Changing permissions to allow execution of scripts.
     - [Run] `sudo chmod -R 755 ~/kubernetes-learning/01-Setup-Ansible`
 4. [All-Nodes] Run the Kubernetes setup file.
-    - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/kubernetes-ubuntu-setup.sh`.
-5. [Control-Plane-Node-only] Refer to '../01-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
+    - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/kubernetes-ubuntu-setup.sh`
+5. [Control-Plane-Node-only] Refer to '../02-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
 6. Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it.
 
 ### OPTION 3
@@ -91,10 +91,16 @@ Recommended Knowledge Beforehand:
 
 If you have a PluralSight subscription, I recommend taking a look at Kubernetes Fundamentals by [Anthony Nocentino](https://app.pluralsight.com/profile/author/anthony-nocentino).
 
-## PluralSight
+## PluralSight Docs
 
-- Navigate files from: 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
+- Navigate from: 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
 - [NOTE] Control Plane Node's IP address will vary; what's used as an example in the upcoming exercise files is: '172.16.94.10' This is the example IP address that will connect to the remote nodes.
+- PDF 1: [Kubernetes Fundamentals][kubernetes-1]
+    - 02-PluralSight-Fundamentals > 02 > exploring-the-kubernetes-architecture-slides.pdf
+- PDF 2: [Install/Configure Kubernetes][kubernetes-2]
+    - 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
+- PDF 3: [Working with Kubernetes Cluster][kubernetes-3]
+    - 02-PluralSight-Fundamentals > 04 > working-with-your-kubernetes-cluster-slides.pdf
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -113,3 +119,6 @@ If you have a PluralSight subscription, I recommend taking a look at Kubernetes 
 [twitter-shield]: https://img.shields.io/twitter/follow/arcanicvoid?style=for-the-badge&logo=twitter&colorB=555
 [twitter-url]: https://twitter.com/arcanicvoid
 [project-screenshot]: images/example.png
+[kubernetes-1]: https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jedington/kubernetes-learning/main/02-PluralSight-Fundamentals/02/exploring-the-kubernetes-architecture-slides.pdf
+[kubernetes-2]: https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jedington/kubernetes-learning/main/02-PluralSight-Fundamentals/03/installing-and-configuring-kubernetes-slides.pdf
+[kubernetes-3]: https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jedington/kubernetes-learning/main/02-PluralSight-Fundamentals/04/working-with-your-kubernetes-cluster-slides.pdf
