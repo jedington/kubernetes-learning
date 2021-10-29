@@ -32,7 +32,7 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 #For more information on this config file see:
 # https://github.com/containerd/cri/blob/master/docs/config.md and also
 # https://github.com/containerd/containerd/blob/master/docs/ops.md
-sudo sed -i '/SystemdCgroup = true/c\SystemdCgroup = false' /etc/containerd/config.toml
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 
 #Restart containerd with the new configuration
 sudo systemctl restart containerd

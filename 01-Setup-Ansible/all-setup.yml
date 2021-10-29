@@ -1,7 +1,10 @@
-- name: "Install inventory mapping and setup all remote nodes"
+- name: "Install inventory mapping and setup remote nodes"
   hosts: nodes
-  #- gather_facts: false # comment out if preferred
+  remote_user: root
+  gather_facts: true
   become: true # newer ansible version of 'sudo'
+  become_method: sudo
+  connection: ssh
   pre_tasks:
   - name: "Install python3"
     raw: 'cat < python-remote-setup.sh'
@@ -15,9 +18,33 @@
         {{ hostvars[host].ansible_host }} {{ host }}
         {% endfor %}
 
-- name: "Update all nodes"
+- name: "Create 'aen' user for all nodes"
   hosts: all
+  remote_user: root
+  gather_facts: true
   become: true # newer ansible version of 'sudo'
+  become_method: sudo
+  connection: ssh
+  tasks:
+  - name: "User creation begins"
+    user:
+      name: "aen"
+      comment: "kubernetes user"
+      uid: 2001
+      append: yes
+      shell: /bin/bash
+      generate_ssh_key: yes
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/id_rsa
+
+# We'll now switch to user 'aen' for the remainder of ansible playbook
+- name: "Update packages, Remove swapfile for all nodes"
+  hosts: all
+  remote_user: aen
+  gather_facts: true
+  become: true # newer ansible version of 'sudo'
+  become_method: sudo
+  connection: ssh
   tasks:
   - name: "Install updates for RedHat OS Families"
     yum: name=* state=latest update_cache=yes
@@ -25,11 +52,6 @@
   - name: "Install updates for Debian OS Families"
     apt: upgrade=dist update_cache=yes
     when: ansible_distribution == 'Debian' or ansible_distribution == 'Kali' or ansible_distribution == 'Ubuntu'
-
-- name: "Remove swapfile for all hosts." # specific to kubernetes
-  hosts: all
-  become: true # newer ansible version of 'sudo'
-  tasks:
   - name: "Remove swapfile from /etc/fstab"
     mount:
       fstype: swap
@@ -41,12 +63,17 @@
       replace: '#\1\2\3swap\4'
       backup: true
 
-- name: "Copy and execute kubernetes setup script for each node."
+# Assuring this part is last,
+- name: "Execute kubernetes setup script for all nodes"
   hosts: all
+  remote_user: aen
+  gather_facts: true
   become: true # newer ansible version of 'sudo'
-  post_tasks:
-    - name: "Execute kubernetes setup script."
-      script: 'kubernetes-ubuntu-setup.sh'
-      register: console
-    - debug: msg='{{ console.stdout }}'
-    - debug: msg='{{ console.stderr }}' 
+  become_method: sudo
+  connection: ssh
+  post-tasks:
+  - name: "Execute kubernetes setup script."
+    script: 'kubernetes-setup.sh'
+    register: console
+  - debug: msg='{{ console.stdout }}'
+  - debug: msg='{{ console.stderr }}' 
