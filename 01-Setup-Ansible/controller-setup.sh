@@ -86,13 +86,15 @@ done <<- EOM
     # /etc/ansible/hosts #
     # ## ### #### ### ## #
 
+    # will rely on the playbook user specifications as preference
+
     [controller]
-    c1-cp1 ansible_host=10.10.10.10 ansible_user=root
+    c1-cp1 ansible_host=10.10.10.10 #- ansible_user=root
     #- localhost ansible_host=127.0.0.1 ansible_user=root ansible_connection=local
 
     [nodes] # ip changes depending on vm setup
-    c1-node1 ansible_host=10.10.10.11 ansible_user=root 
-    c1-node2 ansible_host=10.10.10.12 ansible_user=root 
-    c1-node3 ansible_host=10.10.10.13 ansible_user=root
+    c1-node1 ansible_host=10.10.10.11 #- ansible_user=root 
+    c1-node2 ansible_host=10.10.10.12 #- ansible_user=root 
+    c1-node3 ansible_host=10.10.10.13 #- ansible_user=root
 
 EOM
