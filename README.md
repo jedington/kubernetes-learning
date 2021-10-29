@@ -30,6 +30,8 @@ Recommended Knowledge Beforehand:
 |:--:| 
 | *Lab Example* |
 
+---------------------------------------------------------------------------
+
 ## Installing Kubernetes on Each Node (1+X)
 
 ### OPTION 1
@@ -68,7 +70,7 @@ Recommended Knowledge Beforehand:
 7. Finally, run the Ansible playbook from the Controller Node.
     - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/ansible-playbook all-setup.yml` 
 8. Refer to '../02-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
-9. Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>. Keep in mind that much of installing Kubernetes has been automated, now its just further configuring the control node and running it.
+9. Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>. Keep in mind that much of installing Kubernetes has been automated, now its just further configuring the control node and running it. Along with pairing the remote nodes to the control node with the token process.
 
 ### OPTION 2
 [SSH] This option is arguably quick if you're fully comfortable with SSH into clients and using 'git' to remotes. This option still automates the Kubernetes install, but you have to SSH to each Node.
@@ -81,27 +83,82 @@ Recommended Knowledge Beforehand:
 4. [All-Nodes] Run the Kubernetes setup file.
     - [Run] `sudo ~/kubernetes-learning/01-Setup-Ansible/kubernetes-ubuntu-setup.sh`
 5. [Control-Plane-Node-only] Refer to '../02-PluralSight-Fundamentals/03/Demos/1-CreateControlPlaneNode-containerd.sh' and complete setup of the Control Plane Node from there.
-6. Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it.
-
-### OPTION 3
-[MANUAL] Going the normal route and no automation. This will take the longest.
-- Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>.
+6. Continue to <a href="#pluralsight">Anthony Nocentino's PluralSight guide</a>. Keep in mind that much of installing Kubernetes has been done, now its just further configuring the control node and running it. Along with pairing the remote nodes to the control node with the token process.
 
 ---------------------------------------------------------------------------
 
 If you have a PluralSight subscription, I recommend taking a look at Kubernetes Fundamentals by [Anthony Nocentino](https://app.pluralsight.com/profile/author/anthony-nocentino).
 
-## PluralSight Docs
+## PluralSight
 
-- Navigate from: 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
-- [NOTE] Control Plane Node's IP address will vary; what's used as an example in the upcoming exercise files is: '172.16.94.10' This is the example IP address that will connect to the remote nodes.
-- PDF 1: [Kubernetes Fundamentals][kubernetes-1]
+[NOTE] Control Plane Node's IP address will vary; what's used as an example in the upcoming exercise files is: '172.16.94.10' This is the example IP address that will connect to the remote nodes.
+1. [Kubernetes Fundamentals][kubernetes-1]
     - 02-PluralSight-Fundamentals > 02 > exploring-the-kubernetes-architecture-slides.pdf
-- PDF 2: [Install/Configure Kubernetes][kubernetes-2]
+2. [Install/Configure Kubernetes][kubernetes-2]
     - 02-PluralSight-Fundamentals > 03 > installing-and-configuring-kubernetes-slides.pdf
-- PDF 3: [Working with Kubernetes Cluster][kubernetes-3]
+3. [Working with Kubernetes Cluster][kubernetes-3]
     - 02-PluralSight-Fundamentals > 04 > working-with-your-kubernetes-cluster-slides.pdf
 
+---------------------------------------------------------------------------
+*NOTE: make sure to finish the remainder of setup from the above PDFs*
+## Using Kubernetes Commands & Deployments
+
+[Kubernetes Command Ref](https://kubernetes.io/docs/reference/kubectl/overview/#operations) • [Kubectl Ref](https://kubernetes.io/docs/reference/kubectl/kubectl/) • [Cheatsheet Ref](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+- apply/create ---- creates resource(s)
+- run ---- start a pod from an image
+- explain ---- documentation of resource(s)
+- delete ---- delete resource(s)
+- get ---- list resource(s)
+- describe ---- detailed resource(s) information
+- exec ---- execute a command on a container
+- logs ---- view logs on a container
+
+[Examples] Imperatively using Kubernetes commands
+|kubectl|[command]|[type]    |[name]     |[flags]                                    |
+|:--:|:--:|:--:|:--:|:--:|
+|kubectl|         |          |           |-h [pipe] more                             |
+|kubectl|get      |          |           |-h [pipe] more                             |
+|kubectl|get      |all       |           |--all-namespaces [pipe] more               |
+|kubectl|get      |pods      |           |--namespace kube-system -o wide            |
+|kubectl|get      |pods      |           |--output=yaml                              |
+|kubectl|create   |deployment|nginx      |--image=nginx                              |
+|kubectl|explain  |pods      |           |--recursive [pipe] more                    |
+|kubectl|describe |nodes     |c1-cp1     |[pipe] more                                |
+|kubectl|create   |deployment|hello-world|--image=gcr.io/google-samples/hello-app:1.0|
+|kubectl|exec     |          |           |-it hello-world-pod -- /bin/sh             |
+|kubectl|describe |replicaset|hello-world|[pipe] more                                |
+|kubectl|expose   |deployment|hello-world|--port=80 --target-port=8080               |
+|kubectl|describe |service   |hello-world|                                           |
+|kubectl|get      |deployment|hello-world|-o yaml [pipe] more                        |
+|kubectl|edit     |deployment|hello-world|                                           |
+|kubectl|scale    |deployment|hello-world|--replicas=40                              |
+|kubectl|delete   |deployment|hello-world|                                           |
+|kubectl|delete   |service   |hello-world|                                           |
+|kubectl|delete   |pod       |hello-world|                                           |
+
+[Examples] Declaratively Deploying instead of Imperatively (w/ dry-runs > manifests)
+```
+#[1]
+kubectl create deployment hello-world \
+    --image=gcr.io/google-samples/hello-app:1.0 \
+    --dry-run=client -o yaml > deployment.yaml
+#[2]
+kubectl apply -f deployment.yaml
+#[3]
+kubectl expose deployment hello-world \
+    --port=80 --target-port=8080 \
+    --dry-run=client -o yaml | more
+#[4]
+kubectl expose deployment hello-world \
+    --port=80 --target-port=8080 \
+    --dry-run=client -o yaml > service.yaml
+#[5]
+kubectl apply -f service.yaml
+#[6]
+sudo sed -i 's/replicas: 1/replicas: 20/' deployment.yaml
+#[7]
+kubectl apply -f deployment.yaml
+```
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/jedington/kubernetes-learning.svg?style=for-the-badge
