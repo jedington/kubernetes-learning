@@ -8,7 +8,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![Twitter][twitter-shield]][twitter-url]
 
-# kubernetes-learning (with Ansible)
+<img src="https://readme-typing-svg.herokuapp.com?lines=Kubernetes%20Learning&size=30" alt="Kubernetes Learning"/> 
 
 Recommended Knowledge Beforehand:
 - Basics of VM tools: VMware / Hyper-V / Virtualbox.
