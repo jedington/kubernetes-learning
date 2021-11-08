@@ -114,38 +114,38 @@ If you have a PluralSight subscription, I recommend taking a look at Kubernetes 
 - logs ---- view logs on a container
 
 [Examples] Useful commands for starting out
-|kubectl|[command]|[type]    |[name]     |[flags]                                    |
+|kubectl|[command]|[type]    |[name]     |[flags]       |
 |:--:|:--:|:--:|:--:|:--:|
-|kubectl|         |          |           |-h [pipe] more                             |
-|kubectl|get      |          |           |-h [pipe] more                             |
-|kubectl|run      |          |           |-h [pipe] more                             |
-|kubectl|exec     |          |           |-h [pipe] more                             |
-|kubectl|edit     |          |           |-h [pipe] more                             |
-|kubectl|logs     |          |           |-h [pipe] more                             |
-|kubectl|create   |          |           |-h [pipe] more                             |
-|kubectl|delete   |          |           |-h [pipe] more                             |
-|kubectl|explain  |          |           |-h [pipe] more                             |
-|kubectl|describe |          |           |-h [pipe] more                             |
-|kubectl|expose   |          |           |-h [pipe] more                             |
-|kubectl|get      |events    |           |--watch &                                  |
+|kubectl|         |          |           |-h \| more    |
+|kubectl|get      |          |           |-h \| more    |
+|kubectl|run      |          |           |-h \| more    |
+|kubectl|exec     |          |           |-h \| more    |
+|kubectl|edit     |          |           |-h \| more    |
+|kubectl|logs     |          |           |-h \| more    |
+|kubectl|create   |          |           |-h \| more    |
+|kubectl|delete   |          |           |-h \| more    |
+|kubectl|explain  |          |           |-h \| more    |
+|kubectl|describe |          |           |-h \| more    |
+|kubectl|expose   |          |           |-h \| more    |
+|kubectl|get      |events    |           |--watch &     |
 
 [Examples] Imperatively using Kubernetes commands
 |kubectl|[command]|[type]    |[name]     |[flags]                                    |
 |:--:|:--:|:--:|:--:|:--:|
-|kubectl|         |          |           |-h [pipe] more                             |
-|kubectl|get      |          |           |-h [pipe] more                             |
-|kubectl|get      |all       |           |--all-namespaces [pipe] more               |
+|kubectl|         |          |           |-h \| more                                 |
+|kubectl|get      |          |           |-h \| more                                 |
+|kubectl|get      |all       |           |--all-namespaces \| more                   |
 |kubectl|get      |pods      |           |--namespace kube-system -o wide            |
 |kubectl|get      |pods      |           |--output=yaml                              |
 |kubectl|create   |deployment|nginx      |--image=nginx                              |
-|kubectl|explain  |pods      |           |--recursive [pipe] more                    |
-|kubectl|describe |nodes     |c1-cp1     |[pipe] more                                |
+|kubectl|explain  |pods      |           |--recursive \| more                        |
+|kubectl|describe |nodes     |c1-cp1     |\| more                                    |
 |kubectl|create   |deployment|hello-world|--image=gcr.io/google-samples/hello-app:1.0|
 |kubectl|exec     |          |           |-it hello-world-pod -- /bin/sh             |
-|kubectl|describe |replicaset|hello-world|[pipe] more                                |
+|kubectl|describe |replicaset|hello-world|\| more                                    |
 |kubectl|expose   |deployment|hello-world|--port=80 --target-port=8080               |
 |kubectl|describe |service   |hello-world|                                           |
-|kubectl|get      |deployment|hello-world|-o yaml [pipe] more                        |
+|kubectl|get      |deployment|hello-world|-o yaml \| more                            |
 |kubectl|edit     |deployment|hello-world|                                           |
 |kubectl|scale    |deployment|hello-world|--replicas=40                              |
 |kubectl|delete   |deployment|hello-world|                                           |
