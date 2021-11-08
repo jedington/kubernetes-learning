@@ -113,6 +113,22 @@ If you have a PluralSight subscription, I recommend taking a look at Kubernetes 
 - exec ---- execute a command on a container
 - logs ---- view logs on a container
 
+[Examples] Useful commands for starting out
+|kubectl|[command]|[type]    |[name]     |[flags]                                    |
+|:--:|:--:|:--:|:--:|:--:|
+|kubectl|         |          |           |-h [pipe] more                             |
+|kubectl|get      |          |           |-h [pipe] more                             |
+|kubectl|run      |          |           |-h [pipe] more                             |
+|kubectl|exec     |          |           |-h [pipe] more                             |
+|kubectl|edit     |          |           |-h [pipe] more                             |
+|kubectl|logs     |          |           |-h [pipe] more                             |
+|kubectl|create   |          |           |-h [pipe] more                             |
+|kubectl|delete   |          |           |-h [pipe] more                             |
+|kubectl|explain  |          |           |-h [pipe] more                             |
+|kubectl|describe |          |           |-h [pipe] more                             |
+|kubectl|expose   |          |           |-h [pipe] more                             |
+|kubectl|get      |events    |           |--watch &                                  |
+
 [Examples] Imperatively using Kubernetes commands
 |kubectl|[command]|[type]    |[name]     |[flags]                                    |
 |:--:|:--:|:--:|:--:|:--:|
