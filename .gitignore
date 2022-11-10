@@ -5,7 +5,7 @@
 **/consul/data/*
 
 ### Vagrant ###
-.vagrant/
+**/.vagrant/*
 *.box
 
 ### VS Code ###
@@ -17,7 +17,7 @@
 *.code-workspace
 
 # Local History for Visual Studio Code
-.history/
+**/.history/*
 
 # Archives--Comment out if you want to include for a specific project
 *.7z
