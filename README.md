@@ -1,12 +1,10 @@
 <!-- PROJECT SHIELDS -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-[![Twitter][twitter-shield]][twitter-url]
 
 <img src="https://readme-typing-svg.herokuapp.com?lines=Kubernetes%20Learning&size=30" alt="Kubernetes Learning"/> 
 
@@ -179,7 +177,6 @@ sudo sed -i 's/replicas: 1/replicas: 20/' deployment.yaml
 kubectl apply -f deployment.yaml
 ```
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/jedington/kubernetes-learning.svg?style=for-the-badge
 [contributors-url]: https://github.com/jedington/kubernetes-learning/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/jedington/kubernetes-learning.svg?style=for-the-badge
@@ -192,8 +189,7 @@ kubectl apply -f deployment.yaml
 [license-url]: https://github.com/jedington/kubernetes-learning/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/julian-edington
-[twitter-shield]: https://img.shields.io/twitter/follow/arcanicvoid?style=for-the-badge&logo=twitter&colorB=555
-[twitter-url]: https://twitter.com/arcanicvoid
+
 [project-screenshot]: images/example.png
 [kubernetes-1]: https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jedington/kubernetes-learning/main/02-PluralSight-Fundamentals/02/exploring-the-kubernetes-architecture-slides.pdf
 [kubernetes-2]: https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jedington/kubernetes-learning/main/02-PluralSight-Fundamentals/03/installing-and-configuring-kubernetes-slides.pdf
